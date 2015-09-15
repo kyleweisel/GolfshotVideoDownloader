@@ -14,7 +14,7 @@ import java.util.Date;
  *
  * @author  Kyle Weisel (kyle@present.tv)
  */
-public class Downloader implements Runnable {
+public final class Downloader implements Runnable {
 
     private final int id;
     private final String destFileName;
@@ -40,13 +40,13 @@ public class Downloader implements Runnable {
      * This method is run on it's own individual thread.
      */
     @Override
-    public void run() {
+    public final void run() {
 
         System.out.println("Job " + this.id + ": starting download of file: " + this.sourceFileName);
 
         try {
 
-            Process process = Runtime.getRuntime().exec("/Applications/ffmpeg -i " + this.sourceFileName + " -acodec copy -vcodec copy  -y -bsf:a aac_adtstoasc -f mp4 " + this.destFileName);
+            Process process = Runtime.getRuntime().exec(Application.FFMPEG_BINARY + " -i " + this.sourceFileName + " -acodec copy -vcodec copy  -y -bsf:a aac_adtstoasc -f mp4 " + this.destFileName);
 
             BufferedReader standardInput = new BufferedReader(new InputStreamReader(process.getInputStream()));
             BufferedReader standardError = new BufferedReader(new InputStreamReader(process.getErrorStream()));
@@ -86,7 +86,7 @@ public class Downloader implements Runnable {
         DateFormat dateFormat = new SimpleDateFormat("MM/dd/yyyy HH:mm:ss");
         String incidentDate = dateFormat.format(today);
 
-        if (!logFile.exists()) {
+        if (! logFile.exists()) {
             try {
                 logFile.getParentFile().mkdirs();
                 logFile.createNewFile();
@@ -97,7 +97,7 @@ public class Downloader implements Runnable {
         }
 
         try {
-            //BufferedWriter for performance, true to set append to file flag
+            // BufferedWriter for performance, true to set append to file flag
             BufferedWriter writer = new BufferedWriter(new FileWriter(logFile, true));
             writer.append(incidentDate + "\t" + message);
             writer.newLine();

@@ -10,8 +10,8 @@ import java.util.concurrent.Executors;
 public final class Application {
 
     /* Change these settings */
-    public static final String DOWNLOAD_DIRECTORY = "/Users/kbw28/Desktop/Golfshot";
-    public static final String FFMPEG_BINARY = "/Applications/FFMPEG_BINARY";
+    public static final String FFMPEG_BINARY = "/Applications/ffmpeg";
+    private static final String DOWNLOAD_DIRECTORY = "/Users/kbw28/Desktop/Golfshot";
     private static final int NUMBER_OF_THREADS = 4;
 
     /* No touchy below here! */
